@@ -1,13 +1,14 @@
 <template>
   <div class="counter">
-    <h2>Score:</h2>
-    <h1>0</h1>
+    <h2>{{ heading }}</h2>
+    <h1>{{ number }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Counter',
+  props: ['heading', 'number'],
 };
 </script>
 
