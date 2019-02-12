@@ -1,5 +1,5 @@
 <template>
-  <div class="mole-container inactive">
+  <div class="mole-container" :class='moleStatus'>
     <div class="mole-image-container">
       <img class="mole" src="../assets/mole.png" alt="mole"/>
     </div>
@@ -10,6 +10,12 @@
 <script>
 export default {
   name: 'Mole',
+  props: ['isActive'],
+  computed: {
+    moleStatus: function() {
+      return this.isActive ? 'active' : 'inactive';
+    }
+  }
 };
 </script>
 

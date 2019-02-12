@@ -14,10 +14,7 @@
       <Counter heading='Timer' :number='time'></Counter>
     </div>
     <div class="moles-container gameActive">
-      <Mole></Mole>
-      <Mole></Mole>
-      <Mole></Mole>
-      <Mole></Mole>
+      <Mole v-for='(mole, index) in moleData' :isActive='mole.isActive' :key='index'></Mole>
     </div>
   </div>
 </template>
@@ -36,7 +33,13 @@ export default {
     return {
       score: 0,
       highScore: 0,
-      time: 20
+      time: 20,
+      moleData: [
+        { isActive: true },
+        { isActive: false },
+        { isActive: true },
+        { isActive: true },
+      ],
     };
   },
 };
