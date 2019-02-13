@@ -10,7 +10,9 @@
 <script>
 export default {
   name: 'Mole',
-  props: ['isActive'],
+  props: {
+    isActive: Boolean,
+  },
   computed: {
     moleStatus: function() {
       return this.isActive ? 'active' : 'inactive';
