@@ -9,9 +9,9 @@
       Start Game
     </button>
     <div class="counters-container">
-      <Counter heading='Score:' :number='score'></Counter>
-      <Counter heading='HighScore:' :number='highScore'></Counter>
-      <Counter heading='Timer' :number='time'></Counter>
+      <Counter heading='Score:' :count='score'></Counter>
+      <Counter heading='HighScore:' :count='highScore'></Counter>
+      <Counter heading='Timer' :count='time'></Counter>
     </div>
     <div class="moles-container gameActive">
       <Mole></Mole>
