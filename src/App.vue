@@ -52,7 +52,7 @@ export default {
     },
     startTimer: function() {
       this.time = 20;
-      this.timerIntervalID = setInterval(this.advanceTimer, 1000);
+      this.timerIntervalID = this.timerIntervalID || setInterval(this.advanceTimer, 1000);
     },
     advanceTimer: function() {
       this.time > 0 ? this.time -= 1 : this.endGame();
