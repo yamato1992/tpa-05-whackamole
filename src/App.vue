@@ -4,7 +4,7 @@
       Whack-a-mole!
     </h1>
     <button
-      class="start-game"
+      class="start-game" @click='startGame'
     >
       Start Game
     </button>
@@ -40,8 +40,27 @@ export default {
         { isActive: true },
         { isActive: true },
       ],
+      timerIntervalID: null,
     };
   },
+  methods: {
+    startGame: function() {
+      this.startTimer();
+    },
+    endGame: function() {
+      this.stopTimer();
+    },
+    startTimer: function() {
+      this.time = 20;
+      this.timerIntervalID = this.timerIntervalID || setInterval(this.advanceTimer, 1000);
+    },
+    advanceTimer: function() {
+      this.time > 0 ? this.time -= 1 : this.endGame();
+    },
+    stopTimer: function() {
+      clearInterval(this.timerIntervalID);
+    },
+  }
 };
 </script>
 
