@@ -1,6 +1,6 @@
 <template>
   <div class="moles-container gameActive">
-    <Mole v-for='(mole, index) in moleData' :isActive='mole.isActive' :key='index'></Mole>
+    <Mole v-for='(mole, index) in moles' :isActive='mole.isActive' :index='index' :key='index' @mole-clicked='moleClicked'></Mole>
   </div>
 </template>
 
@@ -12,15 +12,13 @@ export default {
   components: {
     Mole: Mole,
   },
-  data: function() {
-    return {
-      moleData: [
-        { isActive: true },
-        { isActive: false },
-        { isActive: true },
-        { isActive: true },
-      ],
-    };
+  props: {
+    moles: Array,
+  },
+  methods: {
+    moleClicked: function(index) {
+      this.$emit('mole-clicked', index);
+    }
   }
 };
 </script>
