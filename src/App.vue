@@ -13,33 +13,25 @@
       <Counter heading='HighScore:' :count='highScore'></Counter>
       <Counter heading='Timer' :count='time'></Counter>
     </div>
-    <div class="moles-container gameActive">
-      <Mole v-for='(mole, index) in moleData' :isActive='mole.isActive' :key='index'></Mole>
-    </div>
+    <Moles></Moles>
   </div>
 </template>
 
 <script>
 import Counter from './components/Counter';
-import Mole from './components/Mole';
+import Moles from './components/Moles';
 
 export default {
   name: 'App',
   components: {
     Counter: Counter,
-    Mole: Mole,
+    Moles: Moles,
   },
   data: function() {
     return {
       score: 0,
       highScore: 0,
       time: 20,
-      moleData: [
-        { isActive: true },
-        { isActive: false },
-        { isActive: true },
-        { isActive: true },
-      ],
       timerIntervalID: null,
     };
   },
