@@ -28,8 +28,8 @@ const MAX_ACTIVITY_TIME = 2;
 export default {
   name: 'App',
   components: {
-    Counter: Counter,
-    Moles: Moles,
+    Counter,
+    Moles,
   },
   data: function() {
     return {

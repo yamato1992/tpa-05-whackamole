@@ -10,7 +10,7 @@ import Mole from './Mole';
 export default {
   name: 'Moles',
   components: {
-    Mole: Mole,
+    Mole,
   },
   props: {
     moles: Array,
