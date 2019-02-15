@@ -4,7 +4,7 @@
       Whack-a-mole!
     </h1>
     <button
-      class="start-game" @click='startGame'
+      class="start-game" :disabled='isPlaying' @click='startGame'
     >
       Start Game
     </button>
@@ -13,46 +13,57 @@
       <Counter heading='HighScore:' :count='highScore'></Counter>
       <Counter heading='Timer' :count='time'></Counter>
     </div>
-    <div class="moles-container gameActive">
-      <Mole v-for='(mole, index) in moleData' :isActive='mole.isActive' :key='index'></Mole>
-    </div>
+    <Moles @mole-clicked='moleEvent' :moles='moles'></Moles>
   </div>
 </template>
 
 <script>
 import Counter from './components/Counter';
-import Mole from './components/Mole';
+import Moles from './components/Moles';
+
+const TIME_LIMIT = 20;
+const MIN_ACTIVITY_TIME = 1;
+const MAX_ACTIVITY_TIME = 2;
 
 export default {
   name: 'App',
   components: {
-    Counter: Counter,
-    Mole: Mole,
+    Counter,
+    Moles,
   },
   data: function() {
     return {
       score: 0,
       highScore: 0,
-      time: 20,
-      moleData: [
-        { isActive: true },
-        { isActive: false },
-        { isActive: true },
-        { isActive: true },
-      ],
+      time: TIME_LIMIT,
       timerIntervalID: null,
+      moles: [
+        { isActive: false, activityTime: 0 },
+        { isActive: false, activityTime: 0 },
+        { isActive: false, activityTime: 0 },
+        { isActive: false, activityTime: 0 },
+      ],
+      activateMolesIntervalID: null,
+      inactivateMolesIntervalID: null,
+      isPlaying: false,
     };
   },
   methods: {
     startGame: function() {
       this.startTimer();
+      this.startMoles();
+      this.isPlaying = true;
     },
     endGame: function() {
       this.stopTimer();
+      this.updateHighScore();
+      this.resetScore();
+      this.stopMoles();
+      this.isPlaying = false;
     },
     startTimer: function() {
-      this.time = 20;
-      this.timerIntervalID = this.timerIntervalID || setInterval(this.advanceTimer, 1000);
+      this.time = TIME_LIMIT;
+      this.timerIntervalID = setInterval(this.advanceTimer, 1000);
     },
     advanceTimer: function() {
       this.time > 0 ? this.time -= 1 : this.endGame();
@@ -60,6 +71,40 @@ export default {
     stopTimer: function() {
       clearInterval(this.timerIntervalID);
     },
+    updateHighScore: function() {
+      this.highScore = this.score > this.highScore ? this.score : this.highScore;
+    },
+    resetScore: function() {
+      this.score = 0;
+    },
+    startMoles: function() {
+      this.activateMolesIntervalID = setInterval(this.activateRandomMole, 1000);
+      this.inactivateMolesIntervalID = setInterval(this.inactivateMole, 1000);
+    },
+    activateRandomMole: function() {
+      const index = Math.floor(Math.random() * this.moles.length);
+      if (this.moles[index].isActive) {
+        this.activateRandomMole();
+      } else {
+        this.moles[index].isActive = true;
+        this.moles[index].activityTime = Math.floor(Math.random() * (MAX_ACTIVITY_TIME - MIN_ACTIVITY_TIME) + MIN_ACTIVITY_TIME);
+      }
+    },
+    inactivateMole: function() {
+      this.moles.forEach((mole) => {
+        mole.activityTime > 0 ? mole.activityTime -= 1 : mole.isActive = false;
+      });
+    },
+    stopMoles: function() {
+      this.moles.forEach((mole) => mole.isActive = false);
+      clearInterval(this.activateMolesIntervalID);
+      clearInterval(this.inactivateMolesIntervalID);
+    },
+    moleEvent: function(index) {
+      this.score += 1;
+      this.moles[index].isActive = false;
+      this.moles[index].activityTime = 0;
+    }
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="mole-container" :class='moleStatus'>
     <div class="mole-image-container">
-      <img class="mole" src="../assets/mole.png" alt="mole"/>
+      <img class="mole" src="../assets/mole.png" alt="mole" @click='moleClicked' />
     </div>
     <img class="dirt" src="../assets/dirt.svg" alt="mole dirt"/>
   </div>
@@ -11,11 +11,17 @@
 export default {
   name: 'Mole',
   props: {
+    index: Number,
     isActive: Boolean,
   },
   computed: {
     moleStatus: function() {
       return this.isActive ? 'active' : 'inactive';
+    }
+  },
+  methods: {
+    moleClicked: function() {
+      this.$emit('mole-clicked', this.index);
     }
   }
 };
