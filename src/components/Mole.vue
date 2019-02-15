@@ -11,7 +11,6 @@
 export default {
   name: 'Mole',
   props: {
-    index: Number,
     isActive: Boolean,
   },
   computed: {

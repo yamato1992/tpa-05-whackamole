@@ -1,6 +1,6 @@
 <template>
   <div class="moles-container gameActive">
-    <Mole v-for='(mole, index) in moles' :isActive='mole.isActive' :index='index' :key='index' @mole-clicked='moleClicked'></Mole>
+    <Mole v-for='(mole, index) in moles' :isActive='mole.isActive' :key='index' @mole-clicked='moleClicked(index)'></Mole>
   </div>
 </template>
 
