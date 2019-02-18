@@ -13,7 +13,7 @@
       <Counter heading='HighScore:' :count='highScore'></Counter>
       <Counter heading='Timer' :count='time'></Counter>
     </div>
-    <Moles @mole-clicked='moleEvent' :moles='moles'></Moles>
+    <Moles @mole-clicked='moleEvent' :moles='moles' :isPlaying='isPlaying'></Moles>
   </div>
 </template>
 
@@ -131,25 +131,5 @@ export default {
 .counters-container {
   display: flex;
   justify-content: space-evenly;
-}
-
-.moles-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-}
-
-.moles-container.game-active {
-  opacity: 1;
-}
-
-.dirt {
-  width: 100%;
-  margin: auto;
-  z-index: 1;
-  position: absolute;
-  bottom: 0;
 }
 </style>
